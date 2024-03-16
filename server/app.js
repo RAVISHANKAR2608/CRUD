@@ -4,6 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require('dotenv').config();
+const routes = require("./routers/router");
 
 // Created express server
 const app = express();
@@ -28,7 +29,12 @@ app.use(cors());
 // Convert Incoming Data to JSON Format
 app.use(bodyParser.json());
 
-// app.use('/employee', routes);
+app.use((req, res, next) => {
+  console.log(`Method: ${req.method} Type: ${res.type}`);
+  next();
+})
+
+app.use('/employee', routes);
 
 // Setup for the Server Port Number
 const PORT = process.env.PORT || 3030;
