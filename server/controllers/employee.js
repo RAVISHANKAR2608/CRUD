@@ -8,7 +8,11 @@ const createEmployee = async (req, res) => {
       name,
       email,
     });
+
+        //   Another way to create query
+        
     // await userData.save();
+    // res.status(200).json(userData);
 
     const data = await employee.create(userData);
     res.status(200).json(data);

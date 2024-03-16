@@ -29,10 +29,10 @@ app.use(cors());
 // Convert Incoming Data to JSON Format
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-  console.log(`Method: ${req.method} Type: ${res.type}`);
-  next();
-})
+// app.use((req, res, next) => {
+//   console.log(`Path: ${req.path} , Method: ${req.method}`);
+//   next();
+// });
 
 app.use('/employee', routes);
 
