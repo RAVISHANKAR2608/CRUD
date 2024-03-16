@@ -10,7 +10,7 @@ const createEmployee = async (req, res) => {
     });
 
         //   Another way to create query
-        
+
     // await userData.save();
     // res.status(200).json(userData);
 
@@ -18,7 +18,7 @@ const createEmployee = async (req, res) => {
     res.status(200).json(data);
   } catch (error) {
     res.send(401).json(error);  
-    console.log("Error Occurred");
+    console.log("Error Occurred : ", error);
   }
 };
 
