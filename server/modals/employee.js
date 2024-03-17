@@ -19,8 +19,12 @@ const EmployeeModal = new Schema(
         }
       },
     },
+    archived: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model( "Employee", EmployeeModal );
+module.exports = mongoose.model("Employee", EmployeeModal);
