@@ -86,12 +86,28 @@ const updateEmployee = async (req, res) => {
   }
 
   try {
+    // Check if the employee with the given ID exists and is not already archived
+    const existingEmployee = await employee.findOne({
+      _id: id,
+      archived: false,
+    });
+
+    if (!existingEmployee) {
+      return res
+        .status(404)
+        .json({ error: "Employee not Found" });
+    }
+
+    // Update the employee data in the database
     const updateEmployeeData = await employee.findByIdAndUpdate(
       {
         _id: id,
       },
       {
         ...req.body,
+      },
+      {
+        new: true,
       }
     );
     res.status(200).json(updateEmployeeData);
@@ -102,6 +118,7 @@ const updateEmployee = async (req, res) => {
 
 const deleteEmployee = async (req, res) => {
   const { id } = req.params;
+  // const  itemId = req.params.id;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(404).json({ error: "No Data Found" });
@@ -117,6 +134,18 @@ const deleteEmployee = async (req, res) => {
   // }
 
   try {
+    // Check if the employee with the given ID exists and is not already archived
+    const existingEmployee = await employee.findOne({
+      _id: id,
+      archived: false,
+    });
+
+    if (!existingEmployee) {
+      return res
+        .status(404)
+        .json({ error: "Employee not found or already archived" });
+    }
+
     // const deletedItem = await Item.findByIdAndUpdate(itemId, { archived: true }, { new: true });
 
     const data = await employee.findByIdAndUpdate(
@@ -125,6 +154,9 @@ const deleteEmployee = async (req, res) => {
       },
       {
         archived: true,
+      },
+      {
+        new: true,
       }
     );
     res.status(200).json(data);
@@ -133,4 +165,10 @@ const deleteEmployee = async (req, res) => {
   }
 };
 
-module.exports = { createEmployee, getEmployees, getEmployee, updateEmployee, deleteEmployee };
+module.exports = {
+  createEmployee,
+  getEmployees,
+  getEmployee,
+  updateEmployee,
+  deleteEmployee,
+};
