@@ -72,9 +72,9 @@ const getEmployee = async (req, res) => {
 
   try {
     const employeeData = await employee.findById(id);
-    res.status(200).json(employeeData);
+    res.status(200).json({success: true, employeeData});
   } catch (e) {
-    res.status(400).json({ error: e.message });
+    res.status(400).json({success: false, error: e.message });
   }
 };
 

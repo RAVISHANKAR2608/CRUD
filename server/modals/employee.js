@@ -13,6 +13,7 @@ const EmployeeModal = new Schema(
       type: String,
       require: true,
       unique: true,
+      lowercase: true,
       validate(value) {
         if (!validator.isEmail) {
           throw new error("Please Enter Valid Email !!!");
